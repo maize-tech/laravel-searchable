@@ -1,0 +1,59 @@
+{
+    "name": "h-farm/laravel-searchable",
+    "description": "Laravel Searchable",
+    "keywords": [
+        "h-farm",
+        "laravel-searchable"
+    ],
+    "homepage": "https://github.com/h-farm/laravel-searchable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Riccardo Dalla Via",
+            "email": "riccardo.dallavia@h-farm.com",
+            "homepage": "https://h-farm.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/database": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0",
+        "spatie/laravel-package-tools": "^1.4.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.3",
+        "spatie/laravel-ray": "^1.12",
+        "vimeo/psalm": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "HFarm\\Searchable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HFarm\\Searchable\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HFarm\\Searchable\\SearchableServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
