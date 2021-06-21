@@ -45,9 +45,9 @@ return [
 
 ## Usage
 
-To use the package, add the `HFarm\Searchable\HasSearch` trait to all models you want to make searchable.
+To use the package, add the `HFarm\Searchable\HasSearch` trait to each model you want to make searchable.
 
-Once done, you can implement the `getSearchableAttributes` abstract method and return the list of attributes or relationships' attributes you want to search for.
+Once done, you can implement the `getSearchableAttributes` abstract method by returning the list of attributes (or relationships' attributes) you want to search for.
 
 You can also define the weight of each searchable attribute. If no weight is specified then `default_match_weight` will be taken from `config/searchable.php`.
 
@@ -123,7 +123,7 @@ That's all!
 
 The package generates an SQL query with an 'or' condition for each search term and each searchable fields.
 The given query returns all models matching the search terms.
-Also, search results are weighted, which means the query will be ordered by the most matching models.
+Furthermore, search results are weighted, which means the query will be ordered by the most matching models.
 
 If you don't want to order the search results by its match weight, you can set the `orderByWeight` flag to false:
 
