@@ -1,6 +1,6 @@
 <?php
 
-namespace HFarm\Searchable\Utils;
+namespace Maize\Searchable\Utils;
 
 class Parser
 {

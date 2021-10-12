@@ -1,11 +1,11 @@
 <?php
 
-namespace HFarm\Searchable\Concerns;
+namespace Maize\Searchable\Concerns;
 
-use HFarm\Searchable\Utils\AttributeUtil;
-use HFarm\Searchable\Utils\Joiner;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
+use Maize\Searchable\Utils\AttributeUtil;
+use Maize\Searchable\Utils\Joiner;
 
 trait JoinsRelationshipsToQuery
 {

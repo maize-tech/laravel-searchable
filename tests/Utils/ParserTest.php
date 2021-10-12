@@ -1,9 +1,9 @@
 <?php
 
-namespace HFarm\Searchable\Tests\Utils;
+namespace Maize\Searchable\Tests\Utils;
 
-use HFarm\Searchable\Tests\TestCase;
-use HFarm\Searchable\Utils\Parser;
+use Maize\Searchable\Tests\TestCase;
+use Maize\Searchable\Utils\Parser;
 
 class ParserTest extends TestCase
 {

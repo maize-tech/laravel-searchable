@@ -1,12 +1,12 @@
 <?php
 
-namespace HFarm\Searchable;
+namespace Maize\Searchable;
 
-use HFarm\Searchable\Concerns\AddsSearchTermToQuery;
-use HFarm\Searchable\Concerns\JoinsRelationshipsToQuery;
-use HFarm\Searchable\Utils\Parser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Maize\Searchable\Concerns\AddsSearchTermToQuery;
+use Maize\Searchable\Concerns\JoinsRelationshipsToQuery;
+use Maize\Searchable\Utils\Parser;
 
 class SearchBuilder extends Builder
 {

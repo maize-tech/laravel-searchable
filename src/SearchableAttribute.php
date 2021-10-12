@@ -1,6 +1,6 @@
 <?php
 
-namespace HFarm\Searchable;
+namespace Maize\Searchable;
 
 class SearchableAttribute
 {

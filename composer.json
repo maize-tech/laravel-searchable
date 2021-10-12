@@ -1,17 +1,17 @@
 {
-    "name": "h-farm/laravel-searchable",
+    "name": "maize-tech/laravel-searchable",
     "description": "Laravel Searchable",
     "keywords": [
-        "h-farm",
+        "maize-tech",
         "laravel-searchable"
     ],
-    "homepage": "https://github.com/h-farm/laravel-searchable",
+    "homepage": "https://github.com/maize-tech/laravel-searchable",
     "license": "MIT",
     "authors": [
         {
             "name": "Riccardo Dalla Via",
             "email": "riccardo.dallavia@h-farm.com",
-            "homepage": "https://h-farm.com",
+            "homepage": "https://innovation.h-farm.com",
             "role": "Developer"
         }
     ],
@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "HFarm\\Searchable\\": "src"
+            "Maize\\Searchable\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "HFarm\\Searchable\\Tests\\": "tests"
+            "Maize\\Searchable\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,7 +50,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "HFarm\\Searchable\\SearchableServiceProvider"
+                "Maize\\Searchable\\SearchableServiceProvider"
             ]
         }
     },

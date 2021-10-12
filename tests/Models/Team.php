@@ -1,10 +1,10 @@
 <?php
 
-namespace HFarm\Searchable\Tests\Models;
+namespace Maize\Searchable\Tests\Models;
 
-use HFarm\Searchable\HasSearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Maize\Searchable\HasSearch;
 
 class Team extends Model
 {

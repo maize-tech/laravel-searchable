@@ -2,10 +2,10 @@
 
 # Laravel Searchable 🔍
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/h-farm/laravel-searchable.svg?style=flat-square)](https://packagist.org/packages/h-farm/laravel-searchable)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/h-farm/laravel-searchable/run-tests?label=tests)](https://github.com/h-farm/laravel-searchable/actions?query=workflow%3ATests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/h-farm/laravel-searchable/Check%20&%20fix%20styling?label=code%20style)](https://github.com/h-farm/laravel-searchable/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/h-farm/laravel-searchable.svg?style=flat-square)](https://packagist.org/packages/h-farm/laravel-searchable)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/maize-tech/laravel-searchable.svg?style=flat-square)](https://packagist.org/packages/maize-tech/laravel-searchable)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/maize-tech/laravel-searchable/run-tests?label=tests)](https://github.com/maize-tech/laravel-searchable/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/maize-tech/laravel-searchable/Check%20&%20fix%20styling?label=code%20style)](https://github.com/maize-tech/laravel-searchable/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/maize-tech/laravel-searchable.svg?style=flat-square)](https://packagist.org/packages/maize-tech/laravel-searchable)
 
 Easily add weighted searches through model attributes and relationships.
 
@@ -16,12 +16,12 @@ This package currently supports `MySQL` and `PostgreSQL`.
 You can install the package via composer:
 
 ```bash
-composer require h-farm/laravel-searchable
+composer require maize-tech/laravel-searchable
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="HFarm\Searchable\SearchableServiceProvider" --tag="searchable-config"
+php artisan vendor:publish --provider="Maize\Searchable\SearchableServiceProvider" --tag="searchable-config"
 ```
 
 This is the content of the published config file:
@@ -45,7 +45,7 @@ return [
 
 ## Usage
 
-To use the package, add the `HFarm\Searchable\HasSearch` trait to each model you want to make searchable.
+To use the package, add the `Maize\Searchable\HasSearch` trait to each model you want to make searchable.
 
 Once done, you can implement the `getSearchableAttributes` abstract method by returning the list of attributes (or relationships' attributes) you want to search for.
 
@@ -58,7 +58,7 @@ Here's an example model including the `HasSearch` trait:
 
 namespace App\Models;
 
-use HFarm\Searchable\HasSearch;
+use Maize\Searchable\HasSearch;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 

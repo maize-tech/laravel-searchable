@@ -1,6 +1,6 @@
 <?php
 
-namespace HFarm\Searchable;
+namespace Maize\Searchable;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;

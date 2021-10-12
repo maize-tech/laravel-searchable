@@ -1,8 +1,8 @@
 <?php
 
-namespace HFarm\Searchable\Tests;
+namespace Maize\Searchable\Tests;
 
-use HFarm\Searchable\Tests\Models\User;
+use Maize\Searchable\Tests\Models\User;
 
 class HasSearchTest extends TestCase
 {

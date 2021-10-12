@@ -1,6 +1,6 @@
 <?php
 
-namespace HFarm\Searchable;
+namespace Maize\Searchable;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

@@ -1,6 +1,6 @@
 <?php
 
-namespace HFarm\Searchable\Tests\Models;
+namespace Maize\Searchable\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

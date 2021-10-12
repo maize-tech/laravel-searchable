@@ -1,11 +1,11 @@
 <?php
 
-namespace HFarm\Searchable\Tests;
+namespace Maize\Searchable\Tests;
 
-use HFarm\Searchable\SearchableServiceProvider;
-use HFarm\Searchable\Tests\Models\Team;
-use HFarm\Searchable\Tests\Models\User;
 use Illuminate\Database\Schema\Blueprint;
+use Maize\Searchable\SearchableServiceProvider;
+use Maize\Searchable\Tests\Models\Team;
+use Maize\Searchable\Tests\Models\User;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -64,7 +64,7 @@ class TestCase extends Orchestra
             'last_name' => 'Surname',
             'email' => 'name.surname@example.com',
             'description' => '{ "en": "Just a random guy" }',
-            'team_id' => new Team(['name' => 'h-farm']),
+            'team_id' => new Team(['name' => 'maize-tech']),
         ], $attrs))->save();
 
         return $user->fresh();

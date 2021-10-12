@@ -1,12 +1,12 @@
 <?php
 
-namespace HFarm\Searchable\Tests\Utils;
+namespace Maize\Searchable\Tests\Utils;
 
-use HFarm\Searchable\Tests\TestCase;
-use HFarm\Searchable\Utils\AttributeUtil;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Facades\DB;
+use Maize\Searchable\Tests\TestCase;
+use Maize\Searchable\Utils\AttributeUtil;
 
 class AttributeUtilTest extends TestCase
 {

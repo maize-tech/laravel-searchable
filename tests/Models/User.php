@@ -1,14 +1,14 @@
 <?php
 
-namespace HFarm\Searchable\Tests\Models;
+namespace Maize\Searchable\Tests\Models;
 
-use HFarm\Searchable\HasSearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\DB;
+use Maize\Searchable\HasSearch;
 
 class User extends Model
 {

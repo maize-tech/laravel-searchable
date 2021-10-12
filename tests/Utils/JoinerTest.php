@@ -1,11 +1,11 @@
 <?php
 
-namespace HFarm\Searchable\Tests\Utils;
+namespace Maize\Searchable\Tests\Utils;
 
-use HFarm\Searchable\Tests\Models\User;
-use HFarm\Searchable\Tests\TestCase;
-use HFarm\Searchable\Utils\Joiner;
 use LogicException;
+use Maize\Searchable\Tests\Models\User;
+use Maize\Searchable\Tests\TestCase;
+use Maize\Searchable\Utils\Joiner;
 
 class JoinerTest extends TestCase
 {
