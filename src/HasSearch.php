@@ -25,17 +25,23 @@ trait HasSearch
      */
     public function scopeSearch(Builder $query, string $search, bool $orderByWeight = true): void
     {
+        $keyType = $query->getModel()->getKeyType();
         $keyName = $query->getModel()->getQualifiedKeyName();
         $keys = $this->applySearch($query, $search, $keyName);
 
-        $query
-            ->whereIn($keyName, $keys)
-            ->when($keys->isNotEmpty() && $orderByWeight, function ($query) use ($keyName, $keys) {
-                $query->orderByRaw(
-                    $this->formatOrderQuery($keys, $keyName),
-                    $keys
-                );
-            });
+        if (in_array($keyType, ['int', 'integer'])) {
+            $query->whereIntegerInRaw($keyName, $keys);
+        } else {
+            $query->whereIn($keyName, $keys);
+        }
+
+        $query->when(
+            $keys->isNotEmpty() && $orderByWeight,
+            fn ($query) => $query->orderByRaw(
+                $this->formatOrderQuery($keys, $keyName),
+                $keys
+            )
+        );
     }
 
     /**

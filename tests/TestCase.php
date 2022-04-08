@@ -2,7 +2,7 @@
 
 namespace Maize\Searchable\Tests;
 
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Maize\Searchable\SearchableServiceProvider;
 use Maize\Searchable\Tests\Models\Team;
 use Maize\Searchable\Tests\Models\User;
@@ -14,9 +14,10 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->setUpDatabase($this->app);
+        Factory::guessFactoryNamesUsing(
+            fn (string $modelName) => 'Maize\\Searchable\\Database\\Factories\\'.class_basename($modelName).'Factory'
+        );
     }
-
     protected function getPackageProviders($app)
     {
         return [
@@ -32,52 +33,21 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
-    }
 
-    protected function setUpDatabase($app)
-    {
-        $app['db']->connection()->getSchemaBuilder()->create('teams', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->timestamps();
-        });
+        include_once __DIR__.'/../database/migrations/create_teams_table.php.stub';
+        (new \CreateTeamsTable())->up();
 
-        $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('team_id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->json('description');
-            $table->timestamps();
-
-            $table->foreign('team_id')->references('id')->on('teams');
-        });
+        include_once __DIR__.'/../database/migrations/create_users_table.php.stub';
+        (new \CreateUsersTable())->up();
     }
 
     public function createUser(array $attrs = [])
     {
-        $user = new User();
-
-        $user->forceFill(array_merge([
-            'first_name' => 'Name',
-            'last_name' => 'Surname',
-            'email' => 'name.surname@example.com',
-            'description' => '{ "en": "Just a random guy" }',
-            'team_id' => new Team(['name' => 'maize-tech']),
-        ], $attrs))->save();
-
-        return $user->fresh();
+        return User::factory()->create($attrs);
     }
 
     public function createTeam(array $attrs = [])
     {
-        $team = new Team();
-
-        $team->forceFill(array_merge([
-            'name' => 'Name',
-        ], $attrs))->save();
-
-        return $team->fresh();
+        return Team::factory()->create($attrs);
     }
 }

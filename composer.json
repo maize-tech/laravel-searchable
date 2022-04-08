@@ -30,7 +30,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Maize\\Searchable\\": "src"
+            "Maize\\Searchable\\": "src",
+            "Maize\\Searchable\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {

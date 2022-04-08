@@ -2,6 +2,7 @@
 
 namespace Maize\Searchable\Tests;
 
+use Maize\Searchable\Tests\Models\Team;
 use Maize\Searchable\Tests\Models\User;
 
 class HasSearchTest extends TestCase
@@ -94,6 +95,24 @@ class HasSearchTest extends TestCase
         $userIds = $users->pluck('id')->toArray();
 
         $this->assertEquals([$user->id], $userIds);
+    }
+
+    /** @test */
+    public function it_should_apply_search_to_models_with_string_id()
+    {
+        $this->createTeam(['name' => 'Wayne Enterprises']);
+        $this->createTeam(['name' => 'Diabolik Inc']);
+        $this->createTeam(['name' => 'Dunder Mifflin Inc']);
+
+        $teams = Team::search('Dunder')->get();
+        $teamNames = $teams->pluck('name')->toArray();
+
+        $this->assertEquals(['Dunder Mifflin Inc'], $teamNames);
+
+        $teams = Team::search('Inc')->get();
+        $teamNames = $teams->pluck('name')->toArray();
+
+        $this->assertEquals(['Diabolik Inc', 'Dunder Mifflin Inc'], $teamNames);
     }
 
     /** @test */
