@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-searchable` will be documented in this file.
 
+## 3.1.0 - 2022-04-08
+
+ADD query optimization for models with integer id
+
 ## 3.0.0 - 2022-02-15
 
 - add laravel 9 support
