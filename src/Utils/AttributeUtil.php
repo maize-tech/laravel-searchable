@@ -117,7 +117,7 @@ class AttributeUtil
             return "$attributeName->>'$jsonKey'";
         }
 
-        return "JSON_UNQUOTE(JSON_EXTRACT($attributeName, '$.$jsonKey'))";
+        return "JSON_UNQUOTE(JSON_EXTRACT($attributeName, '$.\"$jsonKey\"'))";
     }
 
     /**

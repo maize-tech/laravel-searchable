@@ -118,7 +118,7 @@ class AttributeUtilTest extends TestCase
 
         $result = AttributeUtil::formatJsonOperator($model, $attributeName, $jsonKey);
 
-        $this->assertEquals("JSON_UNQUOTE(JSON_EXTRACT($attributeName, '$.$jsonKey'))", $result);
+        $this->assertEquals("JSON_UNQUOTE(JSON_EXTRACT($attributeName, '$.\"$jsonKey\"'))", $result);
     }
 
     /** @test */
@@ -168,7 +168,7 @@ class AttributeUtilTest extends TestCase
 
         $result = AttributeUtil::formatAttribute($model, $attribute);
 
-        $this->assertEquals("COALESCE(JSON_UNQUOTE(JSON_EXTRACT(users.description, '$.*')),'')", $result);
+        $this->assertEquals("COALESCE(JSON_UNQUOTE(JSON_EXTRACT(users.description, '$.\"*\"')),'')", $result);
     }
 
     /** @test */
