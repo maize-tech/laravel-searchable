@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-searchable` will be documented in this file.
 
-## FIX json_extract param - 2023-01-10
+## 3.1.1 - 2023-01-10
 
 - FIX json_extract param
 
