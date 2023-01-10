@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-searchable` will be documented in this file.
 
+## FIX json_extract param - 2023-01-10
+
+- FIX json_extract param
+
 ## 3.1.0 - 2022-04-08
 
 ADD query optimization for models with integer id
