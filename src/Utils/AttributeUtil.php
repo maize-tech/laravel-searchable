@@ -87,6 +87,7 @@ class AttributeUtil
             if ($reflectionMethod->getNumberOfParameters() === 1) {
                 $grammar = $model::query()->getQuery()->getGrammar();
 
+                /**  @psalm-suppress TooManyArguments */
                 return strval($attribute->getValue($grammar));
             }
 
