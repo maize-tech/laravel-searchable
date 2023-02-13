@@ -83,9 +83,13 @@ class AttributeUtil
         if ($attribute instanceof Expression) {
             $reflectionMethod = new \ReflectionMethod(Expression::class, 'getValue');
 
-            return $reflectionMethod->invokeArgs($attribute, [
-                'grammar' => $model::query()->getQuery()->getGrammar()
-            ]);
+            if ($reflectionMethod->getNumberOfParameters() === 1) {
+                $grammar = $model::query()->getQuery()->getGrammar();
+
+                return $attribute->getValue($grammar);
+            }
+
+            return $attribute->getValue();
         }
 
         $attributeName = self::formatAttributeName($model, $attribute);
