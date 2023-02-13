@@ -81,7 +81,11 @@ class AttributeUtil
     public static function formatAttribute(Model $model, $attribute): string
     {
         if ($attribute instanceof Expression) {
-            return $attribute->getValue();
+            $reflectionMethod = new \ReflectionMethod(Expression::class, 'getValue');
+
+            return $reflectionMethod->invokeArgs($attribute, [
+                'grammar' => $model::query()->getQuery()->getGrammar()
+            ]);
         }
 
         $attributeName = self::formatAttributeName($model, $attribute);
