@@ -7,6 +7,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
+use ReflectionMethod;
 
 class AttributeUtil
 {
@@ -81,7 +82,17 @@ class AttributeUtil
     public static function formatAttribute(Model $model, $attribute): string
     {
         if ($attribute instanceof Expression) {
-            return $attribute->getValue();
+            $reflectionMethod = new ReflectionMethod(Expression::class, 'getValue');
+
+            if ($reflectionMethod->getNumberOfParameters() === 1) {
+                $grammar = $model::query()->getQuery()->getGrammar();
+
+                /**  @psalm-suppress TooManyArguments */
+                return strval($attribute->getValue($grammar));
+            }
+
+            /**  @psalm-suppress TooFewArguments */
+            return strval($attribute->getValue());
         }
 
         $attributeName = self::formatAttributeName($model, $attribute);

@@ -157,7 +157,7 @@ class AttributeUtilTest extends TestCase
 
         $result = AttributeUtil::formatAttribute($model, $attribute);
 
-        $this->assertEquals($attribute, $result);
+        $this->assertEquals($result, "CONCAT(first_name, ' ', last_name)");
     }
 
     /** @test */
