@@ -87,10 +87,11 @@ class AttributeUtil
             if ($reflectionMethod->getNumberOfParameters() === 1) {
                 $grammar = $model::query()->getQuery()->getGrammar();
 
-                return $attribute->getValue($grammar);
+                return strval($attribute->getValue($grammar));
             }
 
-            return $attribute->getValue();
+            /**  @psalm-suppress TooFewArguments */
+            return strval($attribute->getValue());
         }
 
         $attributeName = self::formatAttributeName($model, $attribute);
