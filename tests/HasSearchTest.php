@@ -3,7 +3,6 @@
 use Maize\Searchable\Tests\Models\Team;
 use Maize\Searchable\Tests\Models\User;
 
-
 it('should retrieve all users without search', function () {
     $this->createUser();
     $this->createUser();

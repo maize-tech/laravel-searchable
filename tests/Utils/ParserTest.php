@@ -2,7 +2,6 @@
 
 use Maize\Searchable\Utils\Parser;
 
-
 it('should trim the input string', function () {
     $query = ' test ';
 

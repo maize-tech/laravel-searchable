@@ -5,7 +5,6 @@ use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Facades\DB;
 use Maize\Searchable\Utils\AttributeUtil;
 
-
 it('should return false if an expression is given as attribute', function () {
     $attribute = new Expression('');
     $model = $this->createUser();

@@ -3,7 +3,6 @@
 use Maize\Searchable\Tests\Models\User;
 use Maize\Searchable\Utils\Joiner;
 
-
 it('should inner join relations', function () {
     $sql = 'select * from "users" inner join "teams" on "users"."team_id" = "teams"."id"';
 
