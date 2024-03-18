@@ -16,10 +16,7 @@ class SearchableAttribute
         $this->weight = $weight;
     }
 
-    /**
-     * @return \Illuminate\Database\Query\Expression|string
-     */
-    public function getAttribute()
+    public function getAttribute(): \Illuminate\Database\Query\Expression|string
     {
         return $this->attribute;
     }

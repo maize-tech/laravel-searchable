@@ -74,17 +74,9 @@ class AttributeUtil
     public static function formatAttribute(Model $model, $attribute): string
     {
         if ($attribute instanceof Expression) {
-            $reflectionMethod = new ReflectionMethod(Expression::class, 'getValue');
+            $grammar = $model::query()->getQuery()->getGrammar();
 
-            if ($reflectionMethod->getNumberOfParameters() === 1) {
-                $grammar = $model::query()->getQuery()->getGrammar();
-
-                /**  @psalm-suppress TooManyArguments */
-                return strval($attribute->getValue($grammar));
-            }
-
-            /**  @psalm-suppress TooFewArguments */
-            return strval($attribute->getValue());
+            return strval($attribute->getValue($grammar));
         }
 
         $attributeName = self::formatAttributeName($model, $attribute);

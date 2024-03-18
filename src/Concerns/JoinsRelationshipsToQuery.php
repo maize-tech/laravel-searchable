@@ -11,8 +11,6 @@ trait JoinsRelationshipsToQuery
 {
     /**
      * Lefts joins model's relationships to the given query.
-     *
-     * @return static
      */
     protected function joinRelationships(Builder $query, ?string $as = null): self
     {

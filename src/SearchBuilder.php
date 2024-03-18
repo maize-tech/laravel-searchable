@@ -39,18 +39,14 @@ class SearchBuilder extends Builder
 
     /**
      * Creates a new SearchBuilder instance.
-     *
-     * @return static
      */
     public static function for(Builder $builder): self
     {
-        return new static($builder);
+        return new self($builder);
     }
 
     /**
      * Adds the given attributes to the searchable attributes list.
-     *
-     * @return static
      */
     public function withSearchableAttributes(array $attributes): self
     {
@@ -67,8 +63,6 @@ class SearchBuilder extends Builder
 
     /**
      * Searches through the searchable attributes the given search string.
-     *
-     * @return static
      */
     public function search(string $search): self
     {
@@ -86,8 +80,6 @@ class SearchBuilder extends Builder
 
     /**
      * Queries all terms within the related attribute.
-     *
-     * @return static
      */
     protected function querySearchTerms(array $searchTerms): self
     {
@@ -108,8 +100,6 @@ class SearchBuilder extends Builder
     /**
      * Orders the query results with the sum of all weights
      * of each term matched against a single entry.
-     *
-     * @return static
      */
     protected function orderSearchQuery(): self
     {
@@ -142,10 +132,11 @@ class SearchBuilder extends Builder
             return $builder->{$property};
         });
 
+        /* @phpstan-ignore-next-line  */
         $this->scopes = $builder->getProtected('scopes');
-
+        /* @phpstan-ignore-next-line */
         $this->localMacros = $builder->getProtected('localMacros');
-
+        /* @phpstan-ignore-next-line */
         $this->onDelete = $builder->getProtected('onDelete');
     }
 }

@@ -152,8 +152,9 @@ class Joiner
 
         $join = (new Join($parent::query()->getQuery(), $type, $table))->on($fk, '=', $pk);
 
-        if (in_array(SoftDeletes::class, class_uses_recursive($relation->getRelated()))) {
-            $join->whereNull($relation->getRelated()->getQualifiedDeletedAtColumn());
+        $related = $relation->getRelated();
+        if (is_a($related, SoftDeletes::class)) {
+            $join->whereNull($related->getQualifiedDeletedAtColumn());
         }
 
         if ($relation instanceof MorphOneOrMany) {
@@ -168,15 +169,17 @@ class Joiner
     /**
      * Join pivot or 'through' table.
      */
-    protected function joinIntermediate(Model $parent, Relation $relation, string $type): void
+    protected function joinIntermediate(Model $parent, BelongsToMany|HasManyThrough $relation, string $type): void
     {
-        if ($relation instanceof BelongsToMany) {
-            $table = $relation->getTable();
-            $fk = $relation->getQualifiedForeignPivotKeyName();
-        } else {
-            $table = $relation->getParent()->getTable();
-            $fk = $relation->getQualifiedFirstKeyName();
-        }
+        $table = match(true) {
+            $relation instanceof BelongsToMany => $relation->getTable(),
+            $relation instanceof HasManyThrough => $relation->getParent()->getTable(),
+        };
+
+        $fk = match(true) {
+            $relation instanceof BelongsToMany => $relation->getQualifiedForeignPivotKeyName(),
+            $relation instanceof HasManyThrough => $relation->getQualifiedFirstKeyName(),
+        };
 
         $pk = "{$this->tableName}.{$parent->getKeyName()}";
 
@@ -187,7 +190,6 @@ class Joiner
 
     /**
      * Get pair of the keys from relation in order to join the table.
-     *
      *
      * @throws LogicException
      */
