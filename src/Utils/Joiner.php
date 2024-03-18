@@ -152,9 +152,9 @@ class Joiner
 
         $join = (new Join($parent::query()->getQuery(), $type, $table))->on($fk, '=', $pk);
 
-        $related = $relation->getRelated();
-        if (is_a($related, SoftDeletes::class)) {
-            $join->whereNull($related->getQualifiedDeletedAtColumn());
+        if (in_array(SoftDeletes::class, class_uses_recursive($relation->getRelated()))) {
+            /* @phpstan-ignore-next-line */
+            $join->whereNull($relation->getRelated()->getQualifiedDeletedAtColumn());
         }
 
         if ($relation instanceof MorphOneOrMany) {
