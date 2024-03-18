@@ -171,12 +171,12 @@ class Joiner
      */
     protected function joinIntermediate(Model $parent, BelongsToMany|HasManyThrough $relation, string $type): void
     {
-        $table = match(true) {
+        $table = match (true) {
             $relation instanceof BelongsToMany => $relation->getTable(),
             $relation instanceof HasManyThrough => $relation->getParent()->getTable(),
         };
 
-        $fk = match(true) {
+        $fk = match (true) {
             $relation instanceof BelongsToMany => $relation->getQualifiedForeignPivotKeyName(),
             $relation instanceof HasManyThrough => $relation->getQualifiedFirstKeyName(),
         };

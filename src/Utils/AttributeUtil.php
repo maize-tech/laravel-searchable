@@ -7,7 +7,6 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
-use ReflectionMethod;
 
 class AttributeUtil
 {
