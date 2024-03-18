@@ -1,59 +1,44 @@
 <?php
 
-namespace Maize\Searchable\Tests\Utils;
-
-use Maize\Searchable\Tests\TestCase;
 use Maize\Searchable\Utils\Parser;
 
-class ParserTest extends TestCase
-{
-    /** @test */
-    public function it_should_trim_the_input_string()
-    {
-        $query = ' test ';
 
-        $result = Parser::parseQuery($query, false);
+it('should trim the input string', function () {
+    $query = ' test ';
 
-        $this->assertEquals(['test'], $result);
-    }
+    $result = Parser::parseQuery($query, false);
 
-    /** @test */
-    public function it_should_lowercase_the_input_string()
-    {
-        $query = 'TEST';
+    expect($result)->toEqual(['test']);
+});
 
-        $result = Parser::parseQuery($query, false);
+it('should lowercase the input string', function () {
+    $query = 'TEST';
 
-        $this->assertEquals(['test'], $result);
-    }
+    $result = Parser::parseQuery($query, false);
 
-    /** @test */
-    public function it_should_split_the_input_string()
-    {
-        $query = 'split test';
+    expect($result)->toEqual(['test']);
+});
 
-        $result = Parser::parseQuery($query, false);
+it('should split the input string', function () {
+    $query = 'split test';
 
-        $this->assertEquals(['split', 'test'], $result);
-    }
+    $result = Parser::parseQuery($query, false);
 
-    /** @test */
-    public function it_should_add_wildcards_if_searching_fulltext()
-    {
-        $query = 'wildcard test';
+    expect($result)->toEqual(['split', 'test']);
+});
 
-        $result = Parser::parseQuery($query, true);
+it('should add wildcards if searching fulltext', function () {
+    $query = 'wildcard test';
 
-        $this->assertEquals(['%wildcard%', '%test%'], $result);
-    }
+    $result = Parser::parseQuery($query, true);
 
-    /** @test */
-    public function it_should_not_add_wildcards_if_not_searching_fulltext()
-    {
-        $query = 'no wildcard test';
+    expect($result)->toEqual(['%wildcard%', '%test%']);
+});
 
-        $result = Parser::parseQuery($query, false);
+it('should not add wildcards if not searching fulltext', function () {
+    $query = 'no wildcard test';
 
-        $this->assertEquals(['no', 'wildcard', 'test'], $result);
-    }
-}
+    $result = Parser::parseQuery($query, false);
+
+    expect($result)->toEqual(['no', 'wildcard', 'test']);
+});
