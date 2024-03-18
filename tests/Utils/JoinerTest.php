@@ -37,8 +37,8 @@ it('should right join relations', function () {
 });
 
 it('should join dot nested relations', function () {
-    $sql = 'select * from "users" ' .
-        'inner join "teams" on "users"."team_id" = "teams"."id" ' .
+    $sql = 'select * from "users" '.
+        'inner join "teams" on "users"."team_id" = "teams"."id" '.
         'inner join "badges" on "badges"."team_id" = "teams"."id"';
 
     $user = User::query();
@@ -50,8 +50,8 @@ it('should join dot nested relations', function () {
 });
 
 it('should join morph to many relations', function () {
-    $sql = 'select * from "users" ' .
-        'inner join "taggables" on "taggables"."taggable_id" = "users"."id" ' .
+    $sql = 'select * from "users" '.
+        'inner join "taggables" on "taggables"."taggable_id" = "users"."id" '.
         'inner join "tags" on "taggables"."tag_id" = "tags"."id" and "taggable_type" = ?';
 
     $user = User::query();
@@ -72,7 +72,7 @@ it('should not join morph to relations', function () {
 });
 
 it('should join relations with soft delete', function () {
-    $sql = 'select * from "users" ' .
+    $sql = 'select * from "users" '.
         'inner join "posts" on "posts"."user_id" = "users"."id" and "posts"."deleted_at" is null';
 
     $user = User::query();

@@ -12,8 +12,6 @@ trait JoinsRelationshipsToQuery
     /**
      * Lefts joins model's relationships to the given query.
      *
-     * @param Builder $query
-     * @param string|null $as
      * @return static
      */
     protected function joinRelationships(Builder $query, ?string $as = null): self
@@ -25,8 +23,6 @@ trait JoinsRelationshipsToQuery
 
     /**
      * Retrieves the list of relationships with at least one searchable attribute.
-     *
-     * @return array
      */
     protected function getRelationships(): array
     {

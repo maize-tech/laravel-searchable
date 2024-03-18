@@ -11,11 +11,7 @@ trait AddsSearchTermToQuery
     /**
      * Queries the given term within the given attributes.
      *
-     * @param Builder $query
-     * @param string|Expression $attribute
-     * @param float $weight
-     * @param string $searchTerm
-     * @return void
+     * @param  string|Expression  $attribute
      */
     protected function searchTerm(Builder $query, $attribute, float $weight, string $searchTerm): void
     {
@@ -26,12 +22,6 @@ trait AddsSearchTermToQuery
 
     /**
      * Queries the given search term against the given attribute.
-     *
-     * @param Builder $query
-     * @param string $attributeField
-     * @param string $term
-     * @param float $weight
-     * @return void
      */
     protected function querySearchTerm(Builder $query, string $attributeField, string $term, float $weight): void
     {
@@ -44,11 +34,6 @@ trait AddsSearchTermToQuery
 
     /**
      * Add the given search term to the weights list.
-     *
-     * @param string $sql
-     * @param float $weight
-     * @param string $searchTerm
-     * @return void
      */
     protected function addSearchWeight(string $sql, float $weight, string $searchTerm): void
     {

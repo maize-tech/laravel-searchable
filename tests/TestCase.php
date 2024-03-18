@@ -18,6 +18,7 @@ class TestCase extends Orchestra
             fn (string $modelName) => 'Maize\\Searchable\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
+
     protected function getPackageProviders($app)
     {
         return [

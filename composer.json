@@ -19,10 +19,10 @@
         "php": "^8.1",
         "illuminate/database": "^10.0|^11.0",
         "illuminate/support": "^10.0|^11.0",
+        "laravel/pint": "^1.14",
         "spatie/laravel-package-tools": "^1.14.1"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.4",
         "orchestra/testbench": "^8.0|^9.0",
         "pestphp/pest": "^2.34",
         "pestphp/pest-plugin-arch": "^2.7",
@@ -41,7 +41,7 @@
         }
     },
     "scripts": {
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "format": "vendor/bin/pint",
         "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage"

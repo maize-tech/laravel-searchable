@@ -6,6 +6,7 @@ class SearchableAttribute
 {
     /** @var \Illuminate\Database\Query\Expression|string */
     private $attribute;
+
     /** @var float */
     private $weight;
 
@@ -23,9 +24,6 @@ class SearchableAttribute
         return $this->attribute;
     }
 
-    /**
-     * @return float
-     */
     public function getWeight(): float
     {
         return $this->weight;

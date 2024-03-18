@@ -27,8 +27,6 @@ class Team extends Model
 
     /**
      * Get the team users.
-     *
-     * @return HasMany
      */
     public function users(): HasMany
     {
@@ -37,8 +35,6 @@ class Team extends Model
 
     /**
      * Get the team badges.
-     *
-     * @return HasMany
      */
     public function badges(): HasMany
     {
@@ -47,8 +43,6 @@ class Team extends Model
 
     /**
      * Get the model's searchable attributes.
-     *
-     * @return array
      */
     public function getSearchableAttributes(): array
     {

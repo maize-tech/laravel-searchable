@@ -15,6 +15,7 @@ class SearchBuilder extends Builder
 
     /** @var Collection */
     private $searchableAttributes;
+
     /** @var Collection */
     private $searchWeights;
 
@@ -23,8 +24,6 @@ class SearchBuilder extends Builder
 
     /**
      * SearchBuilder constructor.
-     *
-     * @param Builder $builder
      */
     public function __construct(Builder $builder)
     {
@@ -41,7 +40,6 @@ class SearchBuilder extends Builder
     /**
      * Creates a new SearchBuilder instance.
      *
-     * @param Builder $builder
      * @return static
      */
     public static function for(Builder $builder): self
@@ -52,7 +50,6 @@ class SearchBuilder extends Builder
     /**
      * Adds the given attributes to the searchable attributes list.
      *
-     * @param array $attributes
      * @return static
      */
     public function withSearchableAttributes(array $attributes): self
@@ -71,7 +68,6 @@ class SearchBuilder extends Builder
     /**
      * Searches through the searchable attributes the given search string.
      *
-     * @param string $search
      * @return static
      */
     public function search(string $search): self
@@ -91,7 +87,6 @@ class SearchBuilder extends Builder
     /**
      * Queries all terms within the related attribute.
      *
-     * @param array $searchTerms
      * @return static
      */
     protected function querySearchTerms(array $searchTerms): self
@@ -136,9 +131,6 @@ class SearchBuilder extends Builder
     /**
      * Add the model, scopes, eager loaded relationships, local macro's and onDelete callback
      * from the $builder to this query builder.
-     *
-     * @param Builder $builder
-     * @return void
      */
     protected function initializeFromBuilder(Builder $builder): void
     {
