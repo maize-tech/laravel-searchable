@@ -30,33 +30,22 @@ class User extends Model
 
     /**
      * Get the team that owns the user.
-     *
-     * @return BelongsTo
      */
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
 
-    /**
-     * @return MorphToMany
-     */
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-    /**
-     * @return HasMany
-     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    /**
-     * @return MorphTo
-     */
     public function morphs(): MorphTo
     {
         return $this->morphTo();
@@ -64,8 +53,6 @@ class User extends Model
 
     /**
      * Get the model's searchable attributes.
-     *
-     * @return array
      */
     public function getSearchableAttributes(): array
     {

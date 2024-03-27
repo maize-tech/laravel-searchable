@@ -18,8 +18,6 @@ class Tag extends Model
 
     /**
      * Get the tag users.
-     *
-     * @return MorphToMany
      */
     public function users(): MorphToMany
     {

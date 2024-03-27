@@ -20,28 +20,27 @@ class Joiner
 {
     /**
      * Processed query instance
+     *
      * @var Builder
      */
     protected $query;
 
     /**
      * Parent model
+     *
      * @var Model
      */
     protected $model;
 
     /**
      * Parent table name alias
+     *
      * @var string|null
      */
     protected $tableName;
 
     /**
      * Create new joiner instance.
-     *
-     * @param Builder $query
-     * @param Model $model
-     * @param string|null $as
      */
     public function __construct(Builder $query, Model $model, ?string $as)
     {
@@ -52,13 +51,6 @@ class Joiner
 
     /**
      * Join related tables.
-     *
-     * @param Builder $query
-     * @param Model $model
-     * @param array $targets
-     * @param string|null $as
-     * @param string $type
-     * @return void
      */
     public static function joinAll(Builder $query, Model $model, array $targets, ?string $as = null, string $type = 'inner'): void
     {
@@ -71,12 +63,6 @@ class Joiner
 
     /**
      * Left join related tables.
-     *
-     * @param Builder $query
-     * @param Model $model
-     * @param array $targets
-     * @param string|null $as
-     * @return void
      */
     public static function leftJoinAll(Builder $query, Model $model, array $targets, ?string $as = null): void
     {
@@ -89,12 +75,6 @@ class Joiner
 
     /**
      * Left join related tables.
-     *
-     * @param Builder $query
-     * @param Model $model
-     * @param array $targets
-     * @param string|null $as
-     * @return void
      */
     public static function rightJoinAll(Builder $query, Model $model, array $targets, ?string $as = null): void
     {
@@ -107,10 +87,6 @@ class Joiner
 
     /**
      * Join related tables.
-     *
-     * @param string $target
-     * @param string $type
-     * @return Model
      */
     public function join(string $target, string $type = 'inner'): Model
     {
@@ -125,9 +101,6 @@ class Joiner
 
     /**
      * Left join related tables.
-     *
-     * @param string $target
-     * @return Model
      */
     public function leftJoin(string $target): Model
     {
@@ -136,9 +109,6 @@ class Joiner
 
     /**
      * Right join related tables.
-     *
-     * @param string $target
-     * @return Model
      */
     public function rightJoin(string $target): Model
     {
@@ -147,11 +117,6 @@ class Joiner
 
     /**
      * Join relation's table accordingly.
-     *
-     * @param Model $parent
-     * @param string $segment
-     * @param string $type
-     * @return Model
      */
     protected function joinSegment(Model $parent, string $segment, string $type): Model
     {
@@ -172,31 +137,23 @@ class Joiner
 
     /**
      * Determine whether the related table has been already joined.
-     *
-     * @param Join $join
-     * @return bool
      */
     protected function alreadyJoined(Join $join): bool
     {
-        return in_array($join, (array)$this->query->joins);
+        return in_array($join, (array) $this->query->joins);
     }
 
     /**
      * Get the join clause for related table.
-     *
-     * @param Model $parent
-     * @param Relation $relation
-     * @param string $table
-     * @param string $type
-     * @return Join
      */
     protected function getJoinClause(Model $parent, Relation $relation, string $table, string $type): Join
     {
-        list($fk, $pk) = $this->getJoinKeys($relation);
+        [$fk, $pk] = $this->getJoinKeys($relation);
 
         $join = (new Join($parent::query()->getQuery(), $type, $table))->on($fk, '=', $pk);
 
         if (in_array(SoftDeletes::class, class_uses_recursive($relation->getRelated()))) {
+            /* @phpstan-ignore-next-line */
             $join->whereNull($relation->getRelated()->getQualifiedDeletedAtColumn());
         }
 
@@ -211,21 +168,18 @@ class Joiner
 
     /**
      * Join pivot or 'through' table.
-     *
-     * @param Model $parent
-     * @param Relation $relation
-     * @param string $type
-     * @return void
      */
-    protected function joinIntermediate(Model $parent, Relation $relation, string $type): void
+    protected function joinIntermediate(Model $parent, BelongsToMany|HasManyThrough $relation, string $type): void
     {
-        if ($relation instanceof BelongsToMany) {
-            $table = $relation->getTable();
-            $fk = $relation->getQualifiedForeignPivotKeyName();
-        } else {
-            $table = $relation->getParent()->getTable();
-            $fk = $relation->getQualifiedFirstKeyName();
-        }
+        $table = match (true) {
+            $relation instanceof BelongsToMany => $relation->getTable(),
+            $relation instanceof HasManyThrough => $relation->getParent()->getTable(),
+        };
+
+        $fk = match (true) {
+            $relation instanceof BelongsToMany => $relation->getQualifiedForeignPivotKeyName(),
+            $relation instanceof HasManyThrough => $relation->getQualifiedFirstKeyName(),
+        };
 
         $pk = "{$this->tableName}.{$parent->getKeyName()}";
 
@@ -236,9 +190,6 @@ class Joiner
 
     /**
      * Get pair of the keys from relation in order to join the table.
-     *
-     * @param Relation $relation
-     * @return array
      *
      * @throws LogicException
      */
@@ -270,6 +221,6 @@ class Joiner
             return [$relation->getQualifiedFarKeyName(), $relation->getQualifiedParentKeyName()];
         }
 
-        throw new LogicException("Unknown relation type.");
+        throw new LogicException('Unknown relation type.');
     }
 }

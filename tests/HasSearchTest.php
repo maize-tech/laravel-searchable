@@ -1,138 +1,117 @@
 <?php
 
-namespace Maize\Searchable\Tests;
-
 use Maize\Searchable\Tests\Models\Team;
 use Maize\Searchable\Tests\Models\User;
 
-class HasSearchTest extends TestCase
-{
-    /** @test */
-    public function it_should_retrieve_all_users_without_search()
-    {
-        $this->createUser();
-        $this->createUser();
-        $this->createUser();
+it('should retrieve all users without search', function () {
+    $this->createUser();
+    $this->createUser();
+    $this->createUser();
 
-        $users = User::get();
+    $users = User::get();
 
-        $this->assertCount(3, $users);
-    }
+    expect($users)->toHaveCount(3);
+});
 
-    /** @test */
-    public function it_should_retrieve_all_users_with_empty_search()
-    {
-        $this->createUser();
-        $this->createUser();
-        $this->createUser();
+it('should retrieve all users with empty search', function () {
+    $this->createUser();
+    $this->createUser();
+    $this->createUser();
 
-        $users = User::search('')->get();
+    $users = User::search('')->get();
 
-        $this->assertCount(3, $users);
-    }
+    expect($users)->toHaveCount(3);
+});
 
-    /** @test */
-    public function it_should_filter_users_with_search()
-    {
-        $this->createUser([
-            'first_name' => 'Mario',
-            'last_name' => 'Rossi',
-            'email' => 'mario.rossi@example.com',
-        ]);
-        $this->createUser();
-        $this->createUser();
+it('should filter users with search', function () {
+    $this->createUser([
+        'first_name' => 'Mario',
+        'last_name' => 'Rossi',
+        'email' => 'mario.rossi@example.com',
+    ]);
+    $this->createUser();
+    $this->createUser();
 
-        $users = User::search('mario')->get();
+    $users = User::search('mario')->get();
 
-        $this->assertCount(1, $users);
-    }
+    expect($users)->toHaveCount(1);
+});
 
-    /** @test */
-    public function it_should_order_results_with_match_weight()
-    {
-        $this->createUser([
-            'first_name' => 'Mario',
-            'last_name' => 'Rossi',
-            'email' => 'mario.rossi@example.com',
-        ]);
-        $this->createUser([
-            'first_name' => 'Giuseppe',
-            'last_name' => 'Rossi',
-            'email' => 'giuseppe.rossi@example.com',
-        ]);
-        $this->createUser();
+it('should order results with match weight', function () {
+    $this->createUser([
+        'first_name' => 'Mario',
+        'last_name' => 'Rossi',
+        'email' => 'mario.rossi@example.com',
+    ]);
+    $this->createUser([
+        'first_name' => 'Giuseppe',
+        'last_name' => 'Rossi',
+        'email' => 'giuseppe.rossi@example.com',
+    ]);
+    $this->createUser();
 
-        $users = User::search('mario rossi')->get();
-        $userEmails = $users->pluck('email')->toArray();
+    $users = User::search('mario rossi')->get();
+    $userEmails = $users->pluck('email')->toArray();
 
-        $this->assertEquals(['mario.rossi@example.com', 'giuseppe.rossi@example.com'], $userEmails);
-    }
+    expect($userEmails)->toEqual(['mario.rossi@example.com', 'giuseppe.rossi@example.com']);
+});
 
-    /** @test */
-    public function it_should_order_results_with_attribute_weight()
-    {
-        $this->createUser([
-            'first_name' => 'Mario',
-        ]);
-        $this->createUser([
-            'email' => 'mario.rossi@example.com',
-        ]);
-        $this->createUser();
+it('should order results with attribute weight', function () {
+    $this->createUser([
+        'first_name' => 'Mario',
+    ]);
+    $this->createUser([
+        'email' => 'mario.rossi@example.com',
+    ]);
+    $this->createUser();
 
-        $users = User::search('mario')->get();
-        $userEmails = $users->pluck('email')->toArray();
+    $users = User::search('mario')->get();
+    $userEmails = $users->pluck('email')->toArray();
 
-        $this->assertEquals(['mario.rossi@example.com', 'name.surname@example.com'], $userEmails);
-    }
+    expect($userEmails)->toEqual(['mario.rossi@example.com', 'name.surname@example.com']);
+});
 
-    /** @test */
-    public function it_should_apply_search_to_relation_attributes()
-    {
-        $team = $this->createTeam(['name' => 'Test team']);
-        $user = $this->createUser(['team_id' => $team->id]);
+it('should apply search to relation attributes', function () {
+    $team = $this->createTeam(['name' => 'Test team']);
+    $user = $this->createUser(['team_id' => $team->id]);
 
-        $users = User::search('test team')->get();
-        $userIds = $users->pluck('id')->toArray();
+    $users = User::search('test team')->get();
+    $userIds = $users->pluck('id')->toArray();
 
-        $this->assertEquals([$user->id], $userIds);
-    }
+    expect($userIds)->toEqual([$user->id]);
+});
 
-    /** @test */
-    public function it_should_apply_search_to_models_with_string_id()
-    {
-        $this->createTeam(['name' => 'Wayne Enterprises']);
-        $this->createTeam(['name' => 'Diabolik Inc']);
-        $this->createTeam(['name' => 'Dunder Mifflin Inc']);
+it('should apply search to models with string id', function () {
+    $this->createTeam(['name' => 'Wayne Enterprises']);
+    $this->createTeam(['name' => 'Diabolik Inc']);
+    $this->createTeam(['name' => 'Dunder Mifflin Inc']);
 
-        $teams = Team::search('Dunder')->get();
-        $teamNames = $teams->pluck('name')->toArray();
+    $teams = Team::search('Dunder')->get();
+    $teamNames = $teams->pluck('name')->toArray();
 
-        $this->assertEquals(['Dunder Mifflin Inc'], $teamNames);
+    expect($teamNames)->toEqual(['Dunder Mifflin Inc']);
 
-        $teams = Team::search('Inc')->get();
-        $teamNames = $teams->pluck('name')->toArray();
+    $teams = Team::search('Inc')->get();
+    $teamNames = $teams->pluck('name')->toArray();
 
-        $this->assertEquals(['Diabolik Inc', 'Dunder Mifflin Inc'], $teamNames);
-    }
+    expect($teamNames)->toEqual(['Diabolik Inc', 'Dunder Mifflin Inc']);
+});
 
-    /** @test */
-    public function it_should_not_order_by_search_weight_when_flag_is_set()
-    {
-        $this->createUser([
-            'first_name' => 'Mario',
-            'last_name' => 'Rossi',
-            'email' => 'mario.rossi@example.com',
-        ]);
-        $this->createUser([
-            'first_name' => 'Giuseppe',
-            'last_name' => 'Rossi',
-            'email' => 'giuseppe.rossi@example.com',
-        ]);
-        $this->createUser();
+it('should not order by search weight when flag is set', function () {
+    $this->createUser([
+        'first_name' => 'Mario',
+        'last_name' => 'Rossi',
+        'email' => 'mario.rossi@example.com',
+    ]);
+    $this->createUser([
+        'first_name' => 'Giuseppe',
+        'last_name' => 'Rossi',
+        'email' => 'giuseppe.rossi@example.com',
+    ]);
+    $this->createUser();
 
-        $users = User::search('giuseppe rossi', false, false)->get();
-        $userEmails = $users->pluck('email')->toArray();
+    $users = User::search('giuseppe rossi', false, false)->get();
+    $userEmails = $users->pluck('email')->toArray();
 
-        $this->assertEquals(['mario.rossi@example.com', 'giuseppe.rossi@example.com'], $userEmails);
-    }
-}
+    expect($userEmails)->toEqual(['mario.rossi@example.com', 'giuseppe.rossi@example.com']);
+});

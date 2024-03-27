@@ -10,7 +10,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -18,6 +18,7 @@ class TestCase extends Orchestra
             fn (string $modelName) => 'Maize\\Searchable\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
+
     protected function getPackageProviders($app)
     {
         return [

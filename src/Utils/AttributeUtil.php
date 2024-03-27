@@ -7,7 +7,6 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
-use ReflectionMethod;
 
 class AttributeUtil
 {
@@ -16,9 +15,7 @@ class AttributeUtil
     /**
      * Checks whether the given field is an attribute or not.
      *
-     * @param Model $model
-     * @param string|Expression $attribute
-     * @return bool
+     * @param  string|Expression  $attribute
      */
     public static function isAttribute(Model $model, $attribute): bool
     {
@@ -37,9 +34,7 @@ class AttributeUtil
     /**
      * Checks whether the given field is a relationship or not.
      *
-     * @param Model $model
-     * @param string|Expression $attribute
-     * @return bool
+     * @param  string|Expression  $attribute
      */
     public static function isRelationship(Model $model, $attribute): bool
     {
@@ -56,9 +51,7 @@ class AttributeUtil
      * Checks whether the given field is a json
      * attribute or not.
      *
-     * @param Model $model
-     * @param string|Expression $attribute
-     * @return bool
+     * @param  string|Expression  $attribute
      */
     public static function isJsonAttribute(Model $model, $attribute): bool
     {
@@ -75,24 +68,14 @@ class AttributeUtil
      * Prepares the given attribute and returns the
      * associated query string.
      *
-     * @param Model $model
-     * @param string|Expression $attribute
-     * @return string
+     * @param  string|Expression  $attribute
      */
     public static function formatAttribute(Model $model, $attribute): string
     {
         if ($attribute instanceof Expression) {
-            $reflectionMethod = new ReflectionMethod(Expression::class, 'getValue');
+            $grammar = $model::query()->getQuery()->getGrammar();
 
-            if ($reflectionMethod->getNumberOfParameters() === 1) {
-                $grammar = $model::query()->getQuery()->getGrammar();
-
-                /**  @psalm-suppress TooManyArguments */
-                return strval($attribute->getValue($grammar));
-            }
-
-            /**  @psalm-suppress TooFewArguments */
-            return strval($attribute->getValue());
+            return strval($attribute->getValue($grammar));
         }
 
         $attributeName = self::formatAttributeName($model, $attribute);
@@ -110,11 +93,6 @@ class AttributeUtil
     /**
      * Formats the driver-specific json operator
      * to extract the given json key.
-     *
-     * @param Model $model
-     * @param string $attributeName
-     * @param string $jsonKey
-     * @return string
      */
     public static function formatJsonOperator(Model $model, string $attributeName, string $jsonKey): string
     {
@@ -134,10 +112,6 @@ class AttributeUtil
     /**
      * Prepares the given attribute and returns the
      * associated field name.
-     *
-     * @param Model $model
-     * @param string $attribute
-     * @return string
      */
     protected static function formatAttributeName(Model $model, string $attribute): string
     {

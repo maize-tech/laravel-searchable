@@ -3,8 +3,8 @@
 namespace Maize\Searchable\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Maize\Searchable\Tests\Models\User;
 use Maize\Searchable\Tests\Models\Team;
+use Maize\Searchable\Tests\Models\User;
 
 class UserFactory extends Factory
 {

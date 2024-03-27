@@ -6,10 +6,6 @@ class Parser
 {
     /**
      * Parse query string into separate words with wildcards if applicable.
-     *
-     * @param string $query
-     * @param bool $fulltext
-     * @return array
      */
     public static function parseQuery(string $query, bool $fulltext = true): array
     {
@@ -26,9 +22,6 @@ class Parser
 
     /**
      * Split query string into words/phrases to be searched.
-     *
-     * @param string $query
-     * @return array
      */
     protected static function splitString(string $query): array
     {
@@ -39,9 +32,6 @@ class Parser
 
     /**
      * Transform the query string to lowercase.
-     *
-     * @param string $query
-     * @return string
      */
     protected static function lowercase(string $query): string
     {
@@ -50,9 +40,6 @@ class Parser
 
     /**
      * Trim the string.
-     *
-     * @param string $query
-     * @return string
      */
     protected static function trim(string $query): string
     {
@@ -61,9 +48,6 @@ class Parser
 
     /**
      * Add wildcard to the words.
-     *
-     * @param array $words
-     * @return array
      */
     protected static function addWildcards(array $words): array
     {

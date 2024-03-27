@@ -22,8 +22,6 @@ class Post extends Model
 
     /**
      * Get the badge team.
-     *
-     * @return BelongsTo
      */
     public function users(): BelongsTo
     {

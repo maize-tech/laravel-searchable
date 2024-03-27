@@ -18,8 +18,6 @@ class Badge extends Model
 
     /**
      * Get the badge team.
-     *
-     * @return MorphOne
      */
     public function team(): MorphOne
     {
