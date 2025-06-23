@@ -101,11 +101,14 @@ it('should return the attribute name casted as text if all attributes selector a
     $attributeName = 'description';
     $jsonKey = '*';
 
-    app('db.connection')->setQueryGrammar(new PostgresGrammar);
+    $connection = app('db.connection');
+    $postgresGrammar = new PostgresGrammar($connection);
+    $connection->setQueryGrammar($postgresGrammar);
 
     $result = AttributeUtil::formatJsonOperator($model, $attributeName, $jsonKey);
 
     expect($result)->toEqual("{$attributeName}::TEXT");
+
 });
 
 it('should return the attribute name with specific key element selector if specific key and postgres db connection are set', function () {
@@ -113,7 +116,9 @@ it('should return the attribute name with specific key element selector if speci
     $attributeName = 'description';
     $jsonKey = 'en';
 
-    app('db.connection')->setQueryGrammar(new PostgresGrammar);
+    $connection = app('db.connection');
+    $postgresGrammar = new PostgresGrammar($connection);
+    $connection->setQueryGrammar($postgresGrammar);
 
     $result = AttributeUtil::formatJsonOperator($model, $attributeName, $jsonKey);
 
