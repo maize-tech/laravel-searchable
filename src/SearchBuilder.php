@@ -132,7 +132,7 @@ class SearchBuilder extends Builder
             return $builder->{$property};
         });
 
-        /* @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         $this->scopes = $builder->getProtected('scopes');
         /* @phpstan-ignore-next-line */
         $this->localMacros = $builder->getProtected('localMacros');
