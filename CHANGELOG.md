@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-searchable` will be documented in this file.
 
+## 4.1.0 - 2025-06-24
+
+### What's Changed
+
+* add laravel 12 support by @enricodelazzari in https://github.com/maize-tech/laravel-searchable/pull/37
+
+**Full Changelog**: https://github.com/maize-tech/laravel-searchable/compare/4.0.0...4.1.0
+
 ## 4.0.0 - 2024-03-27
 
 ### What's Changed
