@@ -103,7 +103,7 @@ class SearchBuilder extends Builder
      */
     protected function orderSearchQuery(): self
     {
-        return $this->orderBy(function ($query) {
+        $this->orderBy(function ($query) {
             $tableName = $this->getModel()->getTable();
             $tableKey = $this->getModel()->getKeyName();
             $select = $this->searchWeights->pluck('query')->implode('+');
@@ -116,6 +116,8 @@ class SearchBuilder extends Builder
                 ->whereColumn("sw.$tableKey", "$tableName.$tableKey")
                 ->limit(1);
         }, 'desc');
+
+        return $this;
     }
 
     /**
