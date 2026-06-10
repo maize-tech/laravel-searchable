@@ -8,3 +8,10 @@ parameters:
         - config
         - database
     tmpDir: build/phpstan
+    ignoreErrors:
+        # HasSearch is the package's public API trait, consumed by application
+        # models rather than by code under analysis (src). PHPStan can only
+        # analyse it through a using class, so trait.unused is a false positive.
+        -
+            identifier: trait.unused
+            path: src/HasSearch.php
