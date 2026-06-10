@@ -2,9 +2,11 @@
 
 namespace Maize\Searchable;
 
+use Illuminate\Database\Query\Expression;
+
 class SearchableAttribute
 {
-    /** @var \Illuminate\Database\Query\Expression|string */
+    /** @var Expression|string */
     private $attribute;
 
     /** @var float */
@@ -16,7 +18,7 @@ class SearchableAttribute
         $this->weight = $weight;
     }
 
-    public function getAttribute(): \Illuminate\Database\Query\Expression|string
+    public function getAttribute(): Expression|string
     {
         return $this->attribute;
     }
