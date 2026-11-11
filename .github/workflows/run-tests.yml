@@ -57,3 +57,5 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest
+        env:
+          DB_CONNECTION: sqlite

@@ -15,7 +15,7 @@
 
 Easily add weighted searches through model attributes and relationships.
 
-This package currently supports `MySQL` and `PostgreSQL`.
+This package currently supports `MySQL`, `PostgreSQL` and `SQLite` (see [SQLite support](#sqlite-support) for its requirements and differences).
 
 ## Installation
 
@@ -143,6 +143,18 @@ Article::query()
     ->where('column', '=', 'something')
     ->get();
 ```
+
+## SQLite support
+
+Plain columns, relationship attributes, raw expressions, weights and json attributes are all supported on SQLite, with the following requirements and differences:
+
+- **JSON functions**: json attributes rely on the `json_extract` and `json_each` functions, which are built into SQLite since version 3.38 (older versions must be compiled with the JSON1 extension). The searched column must contain valid json or `NULL`, otherwise SQLite raises a `malformed JSON` error.
+- **Json wildcard (`attribute.*`)**: the search is applied to the top level values of the json object only. Json keys are never matched. Nested objects and arrays are searched in their raw json form, where non-ASCII characters may be stored as escaped sequences (e.g. `\u00e0`) and are therefore not matched.
+- **Case sensitivity**: SQLite's `LOWER` function and `LIKE` operator only fold ASCII characters. Searches are case insensitive for ASCII characters (`APPLE` matches `apple`), and lowercase non-ASCII characters are matched as is (both `città` and `CITTÀ` match a stored `Città`). A stored uppercase non-ASCII character is never matched by its own letter though (neither `àbc` nor `ÀBC` match a stored `ÀBC`).
+- **Accent sensitivity**: searches are accent sensitive (`citta` does not match `Città`).
+- **Whole json columns**: when a json column is searched as a plain attribute (`body` instead of `body.en` or `body.*`) the raw json text is searched, so escaped non-ASCII characters are not matched. Use a json key or the wildcard selector instead.
+- **Raw expressions**: expressions are sent to the database as they are, so they must be valid SQLite. As an example, the `CONCAT` function is only available since SQLite 3.44: use the `||` operator on older versions.
+- **Amount of results**: the keys of all matching models are bound to the final query, which is limited by SQLite's maximum number of bound parameters (32766 by default since SQLite 3.32).
 
 ## Testing
 

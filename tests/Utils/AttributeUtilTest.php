@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Query\Grammars\MySqlGrammar;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
+use Illuminate\Database\Query\Grammars\SQLiteGrammar;
 use Illuminate\Support\Facades\DB;
 use Maize\Searchable\Utils\AttributeUtil;
 
@@ -86,10 +88,13 @@ it('should return true if a json attribute is given', function () {
     expect($result)->toBeTrue();
 });
 
-it('should return the unquoted extraction of the attribute name if a json attribute is given', function () {
+it('should return the unquoted extraction of the attribute name if a json attribute and mysql db connection are set', function () {
     $model = $this->createUser();
     $attributeName = 'description';
     $jsonKey = 'en';
+
+    $connection = app('db.connection');
+    $connection->setQueryGrammar(new MySqlGrammar($connection));
 
     $result = AttributeUtil::formatJsonOperator($model, $attributeName, $jsonKey);
 
@@ -124,6 +129,32 @@ it('should return the attribute name with specific key element selector if speci
     expect($result)->toEqual("{$attributeName}->>'{$jsonKey}'");
 });
 
+it('should return the json extraction of the attribute name if specific key and sqlite db connection are set', function () {
+    $model = $this->createUser();
+    $attributeName = 'description';
+    $jsonKey = 'en';
+
+    $connection = app('db.connection');
+    $connection->setQueryGrammar(new SQLiteGrammar($connection));
+
+    $result = AttributeUtil::formatJsonOperator($model, $attributeName, $jsonKey);
+
+    expect($result)->toEqual("JSON_EXTRACT($attributeName, '$.\"$jsonKey\"')");
+});
+
+it('should return the concatenation of all json values if all attributes selector and sqlite db connection are set', function () {
+    $model = $this->createUser();
+    $attributeName = 'description';
+    $jsonKey = '*';
+
+    $connection = app('db.connection');
+    $connection->setQueryGrammar(new SQLiteGrammar($connection));
+
+    $result = AttributeUtil::formatJsonOperator($model, $attributeName, $jsonKey);
+
+    expect($result)->toEqual("(SELECT GROUP_CONCAT(json_each.value, ' ') FROM JSON_EACH($attributeName))");
+});
+
 it('should return the expression if an expression attribute is given', function () {
     $model = $this->createUser();
     $attribute = DB::raw("CONCAT(first_name, ' ', last_name)");
@@ -136,6 +167,9 @@ it('should return the expression if an expression attribute is given', function 
 it('should return the first non null value in a list with the specific operator if json attribute is given', function () {
     $model = $this->createUser();
     $attribute = 'description.*';
+
+    $connection = app('db.connection');
+    $connection->setQueryGrammar(new MySqlGrammar($connection));
 
     $result = AttributeUtil::formatAttribute($model, $attribute);
 

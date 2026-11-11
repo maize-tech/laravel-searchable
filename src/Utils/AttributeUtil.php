@@ -5,6 +5,7 @@ namespace Maize\Searchable\Utils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
+use Illuminate\Database\Query\Grammars\SQLiteGrammar;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 
@@ -104,6 +105,14 @@ class AttributeUtil
             }
 
             return "$attributeName->>'$jsonKey'";
+        }
+
+        if ($grammar instanceof SQLiteGrammar) {
+            if ($jsonKey === self::ALL_ATTRIBUTES_SELECTOR) {
+                return "(SELECT GROUP_CONCAT(json_each.value, ' ') FROM JSON_EACH($attributeName))";
+            }
+
+            return "JSON_EXTRACT($attributeName, '$.\"$jsonKey\"')";
         }
 
         return "JSON_UNQUOTE(JSON_EXTRACT($attributeName, '$.\"$jsonKey\"'))";
