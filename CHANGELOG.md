@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-searchable` will be documented in this file.
 
+## 4.3.0 - 2026-11-11
+
+### What's Changed
+
+* Bump actions/checkout from 4 to 7 by @dependabot[bot] in https://github.com/maize-tech/laravel-searchable/pull/48
+* Add SQLite support by @enricodelazzari in https://github.com/maize-tech/laravel-searchable/pull/49
+
+**Full Changelog**: https://github.com/maize-tech/laravel-searchable/compare/4.2.0...4.3.0
+
 ## 4.2.0 - 2026-06-10
 
 ### What's Changed
