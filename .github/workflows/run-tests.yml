@@ -10,11 +10,11 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
         php: [8.4, 8.3, 8.2]
-        laravel: [13.*, 12.*, 11.*, 10.*]
+        laravel: [13.*, 12.*, 11.*]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 13.*
@@ -23,8 +23,6 @@ jobs:
             testbench: ^10.0
           - laravel: 11.*
             testbench: ^9.2
-          - laravel: 10.*
-            testbench: ^8.22
         exclude:
           - laravel: 13.*
             php: 8.2
